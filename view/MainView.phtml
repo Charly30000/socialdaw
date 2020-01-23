@@ -1,0 +1,100 @@
+<?php use \dawfony\Ti; ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>
+        <?php Ti::startblock("title") ?>
+        <?= $data["title"] ?>
+        <?php Ti::endblock(); ?>
+    </title>
+    <style>
+        .unPost {
+            border: 1px solid black;
+            margin-bottom: 5px;
+        }
+        .iconoUsuario {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="jumbotron">
+                    <h2>
+                        SocialDaw
+                    </h2>
+                    <p>
+                        Tu red de anime, jpop y kpop
+                    </p>
+                </div>
+                <nav class="navbar navbar-expand-lg navbar-light bg-light navbar-dark bg-dark">
+                    
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="navbar-toggler-icon"></span>
+                    </button> <a class="navbar-brand" href="listado">Inicio</a>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="navbar-nav">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="listado">Lo ultimo <span class="sr-only">(current)</span></a>
+                            </li>
+                            <?php if (!isset($_SESSION["login"])) : ?>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="registro">Registrate <span class="sr-only">(current)</span></a>
+                            </li>
+                            <?php endif ?>
+                            <?php if (!isset($_SESSION["login"])) : ?>
+                            <li class="nav-item active">
+                                <a class="nav-link" href="login">Login <span class="sr-only">(current)</span></a>
+                            </li>
+                            <?php endif ?>
+                            <?php if (isset($_SESSION["login"])) : ?>
+                                <li class="nav-item active">
+                                <a class="nav-link" href="miPerfil">Mi perfil <span class="sr-only">(current)</span></a>
+                            </li>
+                            <?php endif ?>
+                            <?php if (isset($_SESSION["login"])) : ?>
+                                <li class="nav-item active">
+                                <a class="nav-link" href="misSeguidores">Mis seguidores <span class="sr-only">(current)</span></a>
+                            </li>
+                            <?php endif ?>
+                        </ul>
+                        <form class="form-inline">
+                            <input class="form-control mr-sm-2" type="text" /> 
+                            <button class="btn btn-primary my-2 my-sm-0" type="submit">
+                                Search
+                            </button>
+                        </form>
+                        <?php if (isset($_SESSION["login"])) : ?>
+                        <form action="cerrarSesion" method="POST">
+                        <button type="submit" class="btn btn-outline-info">
+                            Cierra sesion <?= $_SESSION["login"] ?>
+                        </button>
+                        </form>
+                        <?php endif ?>
+                        <?php if (isset($_SESSION["login"])) : ?>
+                        <form action="crearPost" method="POST">
+                        <button type="submit" class="btn btn-outline-info" href="crearPost">
+                            Añadir un Post nuevo
+                        </button>
+                        </form>
+                        <?php endif ?>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <?php Ti::startblock("content") ?>
+        <?php Ti::endblock();?>
+    </div>
+</body>
+</html>

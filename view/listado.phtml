@@ -1,0 +1,39 @@
+<?php use \dawfony\Ti; ?>
+<?php Ti::extend("view/MainView.phtml"); ?>
+<?php Ti::startBlock("content"); ?>
+<?php
+    foreach ($data["posts"] as $value) {
+        ?>
+            <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img class="iconoUsuario" alt="<?= $value->foto ?>" src="<?php global $URL_PATH; echo $URL_PATH; ?>/assets/img/<?= $value->foto ?>" />
+                    </div>
+                    <div class="col-md-7">
+                        <h2>
+                            <?= $value->resumen ?>
+                        </h2>
+                        <p>
+                        <?= $value->texto ?>
+                        </p>
+                        <p>
+                            <a class="btn" href="#">View details »</a>
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <h2>
+                            Por: <?= $value->usuario_login ?>
+                        </h2>
+                        <p>
+                            de <?= $value->categoria_post_id ?>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+?>
+<?php Ti::endBlock(); ?>
+<?php Ti::endExtend() ?>

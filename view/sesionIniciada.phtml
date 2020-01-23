@@ -1,0 +1,17 @@
+<?php use \dawfony\Ti; ?>
+<?php Ti::extend("view/MainView.phtml"); ?>
+<?php Ti::startBlock("content"); ?>
+<div class="row">
+		<div class="col-md-12">
+			<div class="jumbotron">
+				<h2>
+					Hola! <?= $_SESSION["login"] ?>
+				</h2>
+				<p>
+					Bienvenido de nuevo señor <?= $_SESSION["login"] ?> con rol <?= $_SESSION["rol"] ?>
+				</p>
+			</div>
+		</div>
+	</div>
+<?php Ti::endBlock(); ?>
+<?php Ti::endExtend() ?>

@@ -1,0 +1,29 @@
+<?php use \dawfony\Ti; ?>
+<?php Ti::extend("view/MainView.phtml"); ?>
+<?php Ti::startBlock("content"); ?>
+<?php $error = $data["error"] ?? false ?>
+<form method="POST" action="login">
+    Logueate:
+    <?php if (isset($data["existeUsuario"])) : ?>
+    <div class="alert alert-danger" role="alert">
+      El usuario con el que intentas acceder no existe!
+    </div>
+    <?php endif ?>
+  <div class="form-group">
+    <label for="login">Login:</label>
+    <input type="text" class="form-control" id = "login" name="login" value="<?= $data["login"] ?? "" ?>">
+    <?php if ($error) : ?>
+    <small id="emailHelp" class="form-text text-muted">Introduce un login por favor</small>
+    <?php endif ?>
+  </div>
+  <div class="form-group">
+    <label for="password">Contraseña:</label>
+    <input type="password" class="form-control" id="password" name="password">
+    <?php if ($error) : ?>
+    <small id="emailHelp" class="form-text text-muted">Introduce una contraseña por favor</small>
+    <?php endif ?>
+  </div>
+  <button type="submit" class="btn btn-primary">Registrarse</button>
+</form>
+<?php Ti::endBlock(); ?>
+<?php Ti::endExtend() ?>
