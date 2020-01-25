@@ -105,4 +105,20 @@ class PruebaController extends Controller {
         $data = ["title" => "Mi perfil", "datos" => compact("postsUsuario", "datosUsuario")];
         echo Ti::render("view/perfilUsuario.phtml", $data);
     }
+
+    public function crearPost() {
+        session_start();
+        $data = ["title" => "Crear un nuevo Post"];
+        echo Ti::render("view/crearPost.phtml", $data);
+    }
+
+    public function crearPostAceptado() {
+        session_start();
+        $resumen = $_POST["resumen"];
+        $texto = $_POST["texto"];
+        $foto = $_FILES["foto"];
+        echo "<pre>";
+        var_dump($resumen, $texto, $foto);
+        echo "</pre>";
+    }
 }

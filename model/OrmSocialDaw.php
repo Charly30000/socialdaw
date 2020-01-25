@@ -76,4 +76,6 @@ class OrmSocialDaw {
         $sql = "select login, nombre, email from usuario where login = ?";
         return $bd->queryOne($sql, [$login], "model\Usuario");
     }
+
+    
 }
