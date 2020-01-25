@@ -117,16 +117,16 @@ class PruebaController extends Controller {
         $resumen = $_POST["resumen"];
         $texto = $_POST["texto"];
         $foto = $_FILES["foto"];
-        echo "<pre>";
-        var_dump($resumen, $texto, $foto);
-        echo "</pre>";
+        //Por hacer cosas
     }
 
-    public function buscarUsuario() {
+    public function buscarUsuario($usuario = "") {
         if (isset($_SESSION["login"])){
             session_start();
         }
-        $usuario = $_GET["usuarioBuscado"];
+        if (!$usuario) {
+            $usuario = $_GET["usuarioBuscado"];
+        }
         $datosUsuario = (new OrmSocialDaw)->obtenerUsuario($usuario);
         if (!$datosUsuario) {
             $data = ["title" => "Usuario desconocido", "usuario" => $usuario];
@@ -134,8 +134,28 @@ class PruebaController extends Controller {
             die();
         }
         $postsUsuario = (new OrmSocialDaw)->postsUsuario($usuario);
-        $data = ["title" => "Perfil de $usuario", "datos" => compact("postsUsuario", "datosUsuario"), 
-            "esBuscado" => true];
+        $leSigue = null;
+        if (isset($_SESSION["login"])){
+            $leSigue = (new OrmSocialDaw)->comprobarSeguimiento($_SESSION["login"], $usuario);
+        }
+        if ($leSigue) {
+            $data = ["leSigue" => true];
+        } else {
+            $data = ["leSigue" => false];
+        }
+        $data += ["title" => "Perfil de $usuario", "datos" => compact("postsUsuario", "datosUsuario"), 
+            "usuario" => $usuario];
         echo Ti::render("view/perfilUsuario.phtml", $data);
+    }
+
+    public function seguirUsuario($usuarioASeguir) {
+        session_start();
+        $loginUsuario = $_SESSION["login"];
+        $leSigue = (new OrmSocialDaw)->comprobarSeguimiento($loginUsuario, $usuarioASeguir);
+        if (!$leSigue) {
+            (new OrmSocialDaw)->seguirUsuario($loginUsuario, $usuarioASeguir);
+        }
+        global $URL_PATH;
+        header("Location: $URL_PATH/buscarUsuario?usuarioBuscado=$usuarioASeguir");
     }
 }

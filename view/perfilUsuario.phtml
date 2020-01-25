@@ -5,7 +5,7 @@
 	extract($data["datos"]);
 ?>
 <div class="container-fluid">
-	<div class="row">
+	<div class="row colocarHorizontal">
 		<div class="col-md-12">
 			<dl>
 				<dt>
@@ -31,12 +31,17 @@
 				</dt>
 			</dl>
 		</div>
-        <?php if (isset($data["esBuscado"]) && isset($_SESSION["login"])) : ?>
+        <?php if ((isset($data["leSigue"]) && isset($_SESSION["login"])) && $_SESSION["login"] !== $data["usuario"] ) : ?>
+        <?php var_dump($data["leSigue"]); ?>
+            <?php if (!$data["leSigue"]){?>
         <div>
-            <button type="button" class="btn btn-success">
-				Seguir
-			</button>
+            <a class="btn btn-primary" href="seguirUsuario/<?= $datosUsuario->login ?>" role="button">Seguir</a>
         </div>
+            <?php } elseif($data["leSigue"]) { ?>
+                <div>
+                    <a class="btn btn-danger" href="#" role="button">Seguido</a>
+                </div>
+            <?php } ?>
         <?php endif ?>
 	</div>
 </div>

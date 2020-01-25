@@ -77,5 +77,20 @@ class OrmSocialDaw {
         return $bd->queryOne($sql, [$login], "model\Usuario");
     }
 
-    
+    public function comprobarSeguimiento($loginUsuario, $loginUsuarioASeguir) {
+        $bd = Klasto::getInstance();
+        $sql = "select usuario_login_seguidor, usuario_login_seguido from sigue";
+        $sql .= " where usuario_login_seguidor = ? and usuario_login_seguido = ?";
+        return $bd->queryOne($sql, [$loginUsuario, $loginUsuarioASeguir]);
+    }
+
+    public function seguirUsuario($loginUsuario, $loginUsuarioASeguir) {
+        $bd = Klasto::getInstance();
+        $sql = "insert into sigue (usuario_login_seguidor, usuario_login_seguido) values (?, ?)";
+        $ejecutar = $bd->execute($sql, [$loginUsuario, $loginUsuarioASeguir]);
+        if ($ejecutar == 0) {
+            echo "No se ha realizado la operacion";
+            die();
+        }
+    }
 }

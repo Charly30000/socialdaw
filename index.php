@@ -19,6 +19,8 @@ Macaw::get($URL_PATH . '/miPerfil', "controller\PruebaController@miPerfil");
 Macaw::get($URL_PATH . '/crearPost', "controller\PruebaController@crearPost");
 Macaw::post($URL_PATH . '/crearPost', "controller\PruebaController@crearPostAceptado");
 Macaw::get($URL_PATH . '/buscarUsuario', "controller\PruebaController@buscarUsuario");
+Macaw::get($URL_PATH . '/buscarUsuario/(:any)', "controller\PruebaController@buscarUsuario");
+Macaw::get($URL_PATH . '/seguirUsuario/(:any)', "controller\PruebaController@seguirUsuario");
 
 // Captura de URL no definidas.
 Macaw::error(function() {
