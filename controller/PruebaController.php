@@ -121,4 +121,21 @@ class PruebaController extends Controller {
         var_dump($resumen, $texto, $foto);
         echo "</pre>";
     }
+
+    public function buscarUsuario() {
+        if (isset($_SESSION["login"])){
+            session_start();
+        }
+        $usuario = $_GET["usuarioBuscado"];
+        $datosUsuario = (new OrmSocialDaw)->obtenerUsuario($usuario);
+        if (!$datosUsuario) {
+            $data = ["title" => "Usuario desconocido", "usuario" => $usuario];
+            echo Ti::render("view/usuarioDesconocido.phtml", $data);
+            die();
+        }
+        $postsUsuario = (new OrmSocialDaw)->postsUsuario($usuario);
+        $data = ["title" => "Perfil de $usuario", "datos" => compact("postsUsuario", "datosUsuario"), 
+            "esBuscado" => true];
+        echo Ti::render("view/perfilUsuario.phtml", $data);
+    }
 }

@@ -1,0 +1,20 @@
+<?php use \dawfony\Ti; ?>
+<?php Ti::extend("view/MainView.phtml"); ?>
+<?php Ti::startBlock("content"); ?>
+<div class="row">
+		<div class="col-md-12">
+			<div class="jumbotron">
+				<h2>
+					Usuario <?= $data["usuario"] ?> desconocido!
+				</h2>
+				<p>
+					El usuario que intentas buscar no existe! Por favor, vuelve a intentarlo
+				</p>
+				<p>
+					<a class="btn btn-primary btn-large" href="listado">Volver al listado</a>
+				</p>
+			</div>
+		</div>
+</div>
+    <?php Ti::endBlock(); ?>
+<?php Ti::endExtend() ?>

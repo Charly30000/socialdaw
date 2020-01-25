@@ -31,6 +31,13 @@
 				</dt>
 			</dl>
 		</div>
+        <?php if (isset($data["esBuscado"]) && isset($_SESSION["login"])) : ?>
+        <div>
+            <button type="button" class="btn btn-success">
+				Seguir
+			</button>
+        </div>
+        <?php endif ?>
 	</div>
 </div>
 <?php
