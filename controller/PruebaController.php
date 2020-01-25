@@ -8,7 +8,9 @@ use \model\Usuario;
 class PruebaController extends Controller {
 
     public function listado() {
-        session_start();
+        if (isset($_SESSION["login"])){
+            session_start();
+        }
         $OrmSocialDaw = new OrmSocialDaw;
         $listadoPosts = $OrmSocialDaw->listadoPosts();
         $data = ["posts" => $listadoPosts, "title" => "Listado"];
