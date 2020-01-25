@@ -66,13 +66,14 @@ class OrmSocialDaw {
 
     public function postsUsuario($login) {
         $bd = Klasto::getInstance();
-        $sql = "select fecha, resumen, texto, foto from post where usuario_login = ?";
+        $sql = "select post.id, fecha, resumen, texto, foto, descripcion as categoria_post_id, usuario_login";
+        $sql .= " from post, categoria_post where categoria_post.id = post.categoria_post_id and usuario_login = ?";
         return $bd->query($sql, [$login], "model\Post");
     }
 
     public function obtenerUsuario ($login) {
         $bd = Klasto::getInstance();
         $sql = "select login, nombre, email from usuario where login = ?";
-        return $bd->query($sql, [$login], "model\Post");
+        return $bd->queryOne($sql, [$login], "model\Usuario");
     }
 }

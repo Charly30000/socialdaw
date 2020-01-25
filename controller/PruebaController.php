@@ -96,6 +96,7 @@ class PruebaController extends Controller {
     }
 
     public function miPerfil() {
+        session_start();
         $usuario = $_SESSION["login"];
         $postsUsuario = (new OrmSocialDaw)->postsUsuario($usuario);
         $datosUsuario = (new OrmSocialDaw)->obtenerUsuario($usuario);
