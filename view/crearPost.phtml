@@ -1,0 +1,33 @@
+<?php use \dawfony\Ti; ?>
+<?php Ti::extend("view/MainView.phtml"); ?>
+<?php Ti::startBlock("content"); ?>
+<div class="row">
+		<div class="col-md-12">
+			<form role="form" action="crearPost" method="POST" enctype="multipart/form-data">
+				<div class="form-group">
+					<label for="resumen">
+						Titulo del Post:
+					</label>
+					<input type="text" class="form-control" id="resumen" name="resumen" />
+				</div>
+				<div class="form-group">
+					<label for="texto">
+						Texto del post
+					</label><br>
+                    <textarea name="texto" id="texto" cols="40" rows="3"></textarea>
+				</div>
+				<div class="form-group">
+					<label for="foto">
+						Imagen del Post
+					</label>
+					<input type="file" class="form-control-file" id="foto" name="foto" />
+				</div>
+				<button type="submit" class="btn btn-primary" id="subirPost">
+					Subir
+				</button>
+			</form>
+		</div>
+	</div>
+    <script src="js/comprobarPost.js"></script>
+<?php Ti::endBlock(); ?>
+<?php Ti::endExtend() ?>
