@@ -5,6 +5,7 @@ use \dawfony\Ti;
 use \dawfony\Klasto;
 require_once "funciones.php";
 use \model\Usuario;
+use \model\Post;
 class PruebaController extends Controller {
 
     public function listado() {
@@ -99,7 +100,7 @@ class PruebaController extends Controller {
 
     public function miPerfil() {
         session_start();
-        $usuario = $_SESSION["login"];
+        $usuario = sanitizar($_SESSION["login"]);
         $postsUsuario = (new OrmSocialDaw)->postsUsuario($usuario);
         $datosUsuario = (new OrmSocialDaw)->obtenerUsuario($usuario);
         $data = ["title" => "Mi perfil", "datos" => compact("postsUsuario", "datosUsuario")];
@@ -108,16 +109,43 @@ class PruebaController extends Controller {
 
     public function crearPost() {
         session_start();
-        $data = ["title" => "Crear un nuevo Post"];
+        $categoriasPosts = (new OrmSocialDaw)->categoriasPosts();
+        $data = ["title" => "Crear un nuevo Post", "categoriasPosts" => $categoriasPosts];
         echo Ti::render("view/crearPost.phtml", $data);
     }
 
     public function crearPostAceptado() {
         session_start();
-        $resumen = $_POST["resumen"];
-        $texto = $_POST["texto"];
+        $resumen = sanitizar($_POST["resumen"] ?? "Sin titulo");
+        $texto = sanitizar($_POST["texto"] ?? "Sin texto");
+        $categoriaPost = sanitizar($_POST["categoriaPost"]);
         $foto = $_FILES["foto"];
         //Por hacer cosas
+        echo "<pre>";
+        var_dump($resumen, $texto, $foto, $categoriaPost);
+        echo "</pre>";
+        if ($foto["name"] === "") {
+            $foto = "avatarNull.png";
+        } else {
+            $foto = $foto["name"];
+        }
+        $post = new Post();
+        $post->resumen = $resumen;
+        $post->texto = $texto;
+        $post->foto = $foto;
+        $obtenerCategoriaPost = (new OrmSocialDaw)->obtenerCategoriaPost($categoriaPost);
+        $post->categoria_post_id = $obtenerCategoriaPost["id"];
+        $post->usuario_login = $_SESSION["login"];
+        (new OrmSocialDaw)->crearPostAceptado($post);
+        //Muevo ahora la imagen
+        if ($foto !== "avatarNull.png"){
+            $target_dir = "assets/img/";
+            $target_file = $target_dir . basename($_FILES["foto"]["name"]);
+            move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file);
+        }
+        global $URL_PATH;
+        header("Location: $URL_PATH/listado");
+
     }
 
     public function buscarUsuario($usuario = "") {

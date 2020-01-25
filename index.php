@@ -31,6 +31,8 @@ Macaw::error(function() {
 try {
   Macaw::dispatch();
 }catch(KlastoException $ex) {
-
+  echo $ex->getMessage();
+}catch (Exception $ex) {
+  echo $ex->getMessage();
 }
 

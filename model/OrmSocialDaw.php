@@ -93,4 +93,28 @@ class OrmSocialDaw {
             die();
         }
     }
+
+    public function categoriasPosts() {
+        $bd = Klasto::getInstance();
+        $sql = "select descripcion from categoria_post";
+        return $bd->query($sql);
+    }
+
+    public function obtenerCategoriaPost($categoria) {
+        $bd = Klasto::getInstance();
+        $sql = "select id from categoria_post where descripcion = ?";
+        return $bd->queryOne($sql, [$categoria]);
+    }
+
+    public function crearPostAceptado($post) {
+        $bd = Klasto::getInstance();
+        $sql = "insert into post (fecha, resumen, texto, foto, categoria_post_id, usuario_login)";
+        $sql .= " values (SYSDATE(), ?, ?, ?, ?, ?)";
+        $ejecutar = $bd->execute($sql, [$post->resumen, $post->texto, $post->foto, $post->categoria_post_id, 
+            $post->usuario_login]);
+        if ($ejecutar == 0) {
+            echo "No se ha realizado la operacion";
+            die();
+        }
+    }
 }
