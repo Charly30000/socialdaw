@@ -1,0 +1,34 @@
+<?php use \dawfony\Ti; ?>
+<?php Ti::extend("view/MainView.phtml"); ?>
+<?php Ti::startBlock("content"); ?>
+<?php
+    extract($data["datos"]);
+?>
+<div class="row">
+            <div class="col-md-12">
+                <div class="row unPost">
+                    <div class="col-md-3">
+                        <img class="iconoUsuario" alt="<?= $postUsuario->foto ?>" 
+						src="<?php global $URL_PATH; echo $URL_PATH; ?>/assets/img/<?= $postUsuario->foto ?>" />
+                    </div>
+                    <div class="col-md-7">
+                        <h2>
+                            <?= $postUsuario->resumen ?>
+                        </h2>
+                        <p>
+                        <?= $postUsuario->texto ?>
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <h2>
+                            Por: <i><?= $postUsuario->usuario_login ?></i>
+                        </h2>
+                        <p>
+                            de <strong><?= $postUsuario->categoria_post_id ?></strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+<?php Ti::endBlock(); ?>
+<?php Ti::endExtend() ?>

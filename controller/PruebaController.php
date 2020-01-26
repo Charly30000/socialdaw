@@ -194,4 +194,14 @@ class PruebaController extends Controller {
         $data = ["title" => "Usuarios que te siguen", "usuariosLeSiguen" => $usuariosLeSiguen];
         echo Ti::render("view/usuariosLeSiguen.phtml", $data);
     }
+
+    public function verPost($idPost) {
+        if (isset($_SESSION["login"])){
+            session_start();
+        }
+        $postUsuario = (new OrmSocialDaw)->obtenerPost($idPost);
+        $comentariosPost = (new OrmSocialDaw)->obtenerComentarios($idPost);
+        $data = ["title" => "Post del usuario", "datos" => compact("postUsuario", "comentariosPost")];
+        echo Ti::render("view/PostUsuario.phtml", $data);
+    }
 }

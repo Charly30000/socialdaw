@@ -67,7 +67,7 @@ class OrmSocialDaw {
 
     public function postsUsuario($login) {
         $bd = Klasto::getInstance();
-        $sql = "select post.id, fecha, resumen, texto, foto, descripcion as categoria_post_id, usuario_login";
+        $sql = "select post.id as id, fecha, resumen, texto, foto, descripcion as categoria_post_id, usuario_login";
         $sql .= " from post, categoria_post where categoria_post.id = post.categoria_post_id and usuario_login = ?";
         $sql .= " order by fecha desc";
         return $bd->query($sql, [$login], "model\Post");
@@ -124,5 +124,19 @@ class OrmSocialDaw {
         $bd = Klasto::getInstance();
         $sql = "select usuario_login_seguidor from sigue where usuario_login_seguido = ?";
         return $bd->query($sql, [$loginUsuario]);
+    }
+
+    public function obtenerPost($id) {
+        $bd = Klasto::getInstance();
+        $sql = "select post.id as id, fecha, resumen, texto, foto, descripcion as categoria_post_id, usuario_login";
+        $sql .= " from post, categoria_post where categoria_post.id = post.categoria_post_id";
+        $sql .= " and post.id = ?";
+        return $bd->queryOne($sql, [$id], "model\Post");
+    }
+
+    public function obtenerComentarios($idPost) {
+        $bd = Klasto::getInstance();
+        $sql = "select usuario_login, fecha, texto from comenta where post_id = ?";
+        return $bd->query($sql, [$idPost], "model\Comentarios");
     }
 }
