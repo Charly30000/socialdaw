@@ -32,7 +32,6 @@
 			</dl>
 		</div>
         <?php if ((isset($data["leSigue"]) && isset($_SESSION["login"])) && $_SESSION["login"] !== $data["usuario"] ) : ?>
-        <?php var_dump($data["leSigue"]); ?>
             <?php if (!$data["leSigue"]){?>
         <div>
             <a class="btn btn-primary" href="seguirUsuario/<?= $datosUsuario->login ?>" role="button">Seguir</a>

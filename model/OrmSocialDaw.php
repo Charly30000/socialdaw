@@ -14,6 +14,7 @@ class OrmSocialDaw {
             $sql .= " LIMIT 2 OFFSET ?";
             array_push($params, $offset);
         }
+        $sql .= " order by fecha desc";
         return $bd->query($sql, $params, "model\Post");
     }
     /*
@@ -68,6 +69,7 @@ class OrmSocialDaw {
         $bd = Klasto::getInstance();
         $sql = "select post.id, fecha, resumen, texto, foto, descripcion as categoria_post_id, usuario_login";
         $sql .= " from post, categoria_post where categoria_post.id = post.categoria_post_id and usuario_login = ?";
+        $sql .= " order by fecha desc";
         return $bd->query($sql, [$login], "model\Post");
     }
 

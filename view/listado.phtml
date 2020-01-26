@@ -2,6 +2,7 @@
 <?php Ti::extend("view/MainView.phtml"); ?>
 <?php Ti::startBlock("content"); ?>
 <?php
+    global $URL_PATH;
     foreach ($data["posts"] as $value) {
         ?>
             <div class="row">
@@ -23,7 +24,9 @@
                     </div>
                     <div class="col-md-2">
                         <h2>
-                            Por: <i><?= $value->usuario_login ?></i>
+                            Por: <a href="
+                            <?= $URL_PATH."/buscarUsuario?usuarioBuscado=$value->usuario_login" ?>">
+                            <i><?= $value->usuario_login ?></i></a>
                         </h2>
                         <p>
                             de <strong><?= $value->categoria_post_id ?></strong>
