@@ -1,0 +1,21 @@
+<?php use \dawfony\Ti; ?>
+<?php Ti::extend("view/MainView.phtml"); ?>
+<?php Ti::startBlock("content"); ?>
+<div class="row">
+    <div class="col-md-12">
+        <h1>Usuarios que te estan siguiendo</h1>
+    </div>
+    <?php
+        global $URL_PATH;
+        foreach ($data["usuariosLeSiguen"] as $value) {
+            ?>
+            <div class="col-md-12 unPost">
+                <a href="<?= $URL_PATH."/buscarUsuario?usuarioBuscado=".$value["usuario_login_seguidor"] ?>">
+                <i><?= $value["usuario_login_seguidor"] ?></i></a>
+            </div>        
+            <?php
+        }
+    ?>
+</div>
+<?php Ti::endBlock(); ?>
+<?php Ti::endExtend() ?>

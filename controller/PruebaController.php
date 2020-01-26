@@ -186,4 +186,12 @@ class PruebaController extends Controller {
         global $URL_PATH;
         header("Location: $URL_PATH/buscarUsuario?usuarioBuscado=$usuarioASeguir");
     }
+
+    public function misSeguidores() {
+        session_start();
+        $loginUsuario = $_SESSION["login"];
+        $usuariosLeSiguen = (new OrmSocialDaw)->misSeguidores($loginUsuario);
+        $data = ["title" => "Usuarios que te siguen", "usuariosLeSiguen" => $usuariosLeSiguen];
+        echo Ti::render("view/usuariosLeSiguen.phtml", $data);
+    }
 }

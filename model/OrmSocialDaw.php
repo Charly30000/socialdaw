@@ -119,4 +119,10 @@ class OrmSocialDaw {
             die();
         }
     }
+
+    public function misSeguidores($loginUsuario) {
+        $bd = Klasto::getInstance();
+        $sql = "select usuario_login_seguidor from sigue where usuario_login_seguido = ?";
+        return $bd->query($sql, [$loginUsuario]);
+    }
 }
