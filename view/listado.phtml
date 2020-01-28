@@ -3,6 +3,10 @@
 <?php Ti::startBlock("content"); ?>
 <?php
     global $URL_PATH;
+    ?>
+    <script> var URL_PATH = "<?= $URL_PATH ?>" </script>
+    <script src="<?= $URL_PATH ?>/js/likes.js"></script>
+    <?php
     foreach ($data["posts"] as $value) {
         ?>
             <div class="row">
@@ -20,6 +24,10 @@
                         </p>
                         <p>
                             <a class="btn" href="<?= $URL_PATH ?>/verPost/<?= $value->id ?>">Ver post »</a>
+                        </p>
+                        <p>
+                            <img class="likes" id="<?= $value->id ?>" src="<?= $URL_PATH ?>/js/like.jpg" alt="like.jpg">
+                            <span id="cantidadLikes<?= $value->id ?>"></span> 
                         </p>
                     </div>
                     <div class="col-md-2">

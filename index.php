@@ -23,6 +23,7 @@ Macaw::get($URL_PATH . '/buscarUsuario/(:any)', "controller\PruebaController@bus
 Macaw::get($URL_PATH . '/seguirUsuario/(:any)', "controller\PruebaController@seguirUsuario");
 Macaw::get($URL_PATH . '/misSeguidores', "controller\PruebaController@misSeguidores");
 Macaw::get($URL_PATH . '/verPost/(:num)', "controller\PruebaController@verPost");
+Macaw::get($URL_PATH . '/comprobarCantidadLikesPost/(:num)', "controller\PruebaController@comprobarCantidadLikesPost");
 // Captura de URL no definidas.
 Macaw::error(function() {
   echo '404 :: Not Found';

@@ -204,4 +204,9 @@ class PruebaController extends Controller {
         $data = ["title" => "Post del usuario", "datos" => compact("postUsuario", "comentariosPost")];
         echo Ti::render("view/PostUsuario.phtml", $data);
     }
+
+    function comprobarCantidadLikesPost($idPost) {
+        $cantidadLikes = (new OrmSocialDaw)->obtenerCantidadLikesPost($idPost);
+        echo $cantidadLikes["contador"];
+    }
 }

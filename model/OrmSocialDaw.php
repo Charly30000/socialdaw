@@ -139,4 +139,10 @@ class OrmSocialDaw {
         $sql = "select usuario_login, fecha, texto from comenta where post_id = ?";
         return $bd->query($sql, [$idPost], "model\Comentarios");
     }
+
+    public function obtenerCantidadLikesPost($idPost) {
+        $bd = Klasto::getInstance();
+        $sql = "Select count(usuario_login) as contador from `like` where post_id = ?";
+        return $bd->queryOne($sql, [$idPost]);
+    }
 }
