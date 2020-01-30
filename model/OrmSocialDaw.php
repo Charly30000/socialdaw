@@ -145,4 +145,15 @@ class OrmSocialDaw {
         $sql = "Select count(usuario_login) as contador from `like` where post_id = ?";
         return $bd->queryOne($sql, [$idPost]);
     }
+
+    public function haDadoLike($loginUsuario, $idPost) {
+        $bd = Klasto::getInstance();
+        $sql = "select usuario_login from `like` where post_id = ? and usuario_login = ?";
+        return $bd->queryOne($sql, [$idPost, $loginUsuario]);
+    }
+
+    public function darLike($loginUsuario, $idPost) {
+        $bd = Klasto::getInstance();
+        $sql = "";
+    }
 }

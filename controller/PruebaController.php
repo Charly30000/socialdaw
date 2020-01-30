@@ -207,6 +207,24 @@ class PruebaController extends Controller {
 
     function comprobarCantidadLikesPost($idPost) {
         $cantidadLikes = (new OrmSocialDaw)->obtenerCantidadLikesPost($idPost);
-        echo $cantidadLikes["contador"];
+        $haDadoLike = "no";
+        if (isset($_SESSION["login"])){
+            $comprobarLike = (new OrmSocialDaw)->haDadoLike($_SESSION["login"], $idPost);
+            if ($comprobarLike) {
+                $haDadoLike = "si";
+            }
+        }
+
+        echo $cantidadLikes["contador"] . " " . $haDadoLike;
+    }
+
+    function darLike($idPost) {
+        $loginUsuario = $_SESSION["login"];
+        $haDadoLike = (new OrmSocialDaw)->haDadoLike($loginUsuario, $idPost);
+        if ($haDadoLike) {
+            (new OrmSocialDaw)->darLike($loginUsuario, $idPost);
+        } else {
+            (new OrmSocialDaw)->quitarLike($loginUsuario, $idPost);
+        }
     }
 }
