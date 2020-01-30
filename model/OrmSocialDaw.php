@@ -154,6 +154,21 @@ class OrmSocialDaw {
 
     public function darLike($loginUsuario, $idPost) {
         $bd = Klasto::getInstance();
-        $sql = "";
+        $sql = "Insert into `like` (post_id, usuario_login) values (?, ?)";
+        $ejecutar = $bd->execute($sql, [$idPost, $loginUsuario]);
+        if ($ejecutar == 0) {
+            echo "No se ha realizado la operacion";
+            die();
+        }
+    }
+
+    public function quitarLike($loginUsuario, $idPost) {
+        $bd = Klasto::getInstance();
+        $sql = "delete from `like` where usuario_login = ? and post_id = ?";
+        $ejecutar = $bd->execute($sql, [$loginUsuario, $idPost]);
+        if ($ejecutar == 0) {
+            echo "No se ha realizado la operacion";
+            die();
+        }
     }
 }

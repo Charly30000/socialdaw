@@ -219,12 +219,15 @@ class PruebaController extends Controller {
     }
 
     function darLike($idPost) {
-        $loginUsuario = $_SESSION["login"];
-        $haDadoLike = (new OrmSocialDaw)->haDadoLike($loginUsuario, $idPost);
-        if ($haDadoLike) {
-            (new OrmSocialDaw)->darLike($loginUsuario, $idPost);
-        } else {
-            (new OrmSocialDaw)->quitarLike($loginUsuario, $idPost);
+        if (isset($_SESSION["login"])){
+            $loginUsuario = $_SESSION["login"];
+            $haDadoLike = (new OrmSocialDaw)->haDadoLike($loginUsuario, $idPost);
+            if (!$haDadoLike) {
+                (new OrmSocialDaw)->darLike($loginUsuario, $idPost);
+            } else {
+                (new OrmSocialDaw)->quitarLike($loginUsuario, $idPost);
+            }
         }
+        
     }
 }

@@ -26,20 +26,21 @@ function comprobarLike(boton) {
         span.textContent = contenido[0];
         if (contenido[1] === "si") {
             boton.setAttribute("src", URL_PATH + "/js/likeRojo.jpg");
+        } else {
+            boton.setAttribute("src", URL_PATH + "/js/like.jpg");
         }
-        console.log(contenido)
     })
 }
 
 function darLike() {
-    let url = URL_PATH + "/darLike/" + this.id;
+    let boton = this;
+    let url = URL_PATH + "/darLike/" + boton.id;
+    console.log(url)
     fetch(url)
     .then (function (respuesta){
         return respuesta.text();
     })
     .then(function(datos) {
-        if (datos) {
-            comprobarLike(this);
-        }
+        comprobarLike(boton);
     })
 }
