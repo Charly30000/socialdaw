@@ -4,6 +4,11 @@
 <?php
 	extract($data["datos"]);
 ?>
+<?php
+    global $URL_PATH;
+    ?>
+    <script> var URL_PATH = "<?= $URL_PATH ?>" </script>
+    <script src="<?= $URL_PATH ?>/js/likes.js"></script>
 <div class="container-fluid">
 	<div class="row colocarHorizontal">
 		<div class="col-md-12">
@@ -63,6 +68,10 @@
                         </p>
                         <p>
                             <a class="btn" href="<?= $URL_PATH ?>/verPost/<?= $value->id ?>">Ver post »</a>
+                        </p>
+                        <p>
+                            <img class="likes" id="<?= $value->id ?>" src="<?= $URL_PATH ?>/js/like.jpg" alt="like.jpg">
+                            <span id="cantidadLikes<?= $value->id ?>"></span> 
                         </p>
                     </div>
                     <div class="col-md-2">
