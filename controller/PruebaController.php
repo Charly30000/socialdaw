@@ -8,13 +8,15 @@ use \model\Usuario;
 use \model\Post;
 class PruebaController extends Controller {
 
-    public function listado() {
+    public function listado($pagina = 0) {
         if (isset($_SESSION["login"])){
             session_start();
         }
         $OrmSocialDaw = new OrmSocialDaw;
-        $listadoPosts = $OrmSocialDaw->listadoPosts();
-        $data = ["posts" => $listadoPosts, "title" => "Listado"];
+        $listadoPosts = $OrmSocialDaw->listadoPosts($pagina);
+        $cantidadPosts = $OrmSocialDaw->obtenerCantidadPosts();
+        $data = ["posts" => $listadoPosts, "title" => "Listado", "cantidadPosts" => $cantidadPosts["cantidadPosts"],
+            "pagina" => $pagina];
         echo Ti::render("view/listado.phtml", $data);
     }
 
@@ -228,6 +230,9 @@ class PruebaController extends Controller {
                 (new OrmSocialDaw)->quitarLike($loginUsuario, $idPost);
             }
         }
-        
+    }
+
+    function obtenerCantidadPosts($pagina = 1) {
+
     }
 }

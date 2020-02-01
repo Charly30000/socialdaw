@@ -8,13 +8,10 @@ class OrmSocialDaw {
         $bd = Klasto::getInstance();
         $params = [];
         $sql = "select post.id, fecha, resumen, texto, foto, descripcion as categoria_post_id, usuario_login";
-        $sql .= " from post, categoria_post where categoria_post.id = post.categoria_post_id";
-        if ($pagina) {
-            $offset = 2 * ($pagina - 1);
-            $sql .= " LIMIT 2 OFFSET ?";
-            array_push($params, $offset);
-        }
-        $sql .= " order by fecha desc";
+        $sql .= " from post, categoria_post where categoria_post.id = post.categoria_post_id order by fecha desc";
+        $offset = 5 * $pagina;
+        $sql .= " LIMIT 5 OFFSET ?";
+        array_push($params, $offset);
         return $bd->query($sql, $params, "model\Post");
     }
     /*
@@ -170,5 +167,11 @@ class OrmSocialDaw {
             echo "No se ha realizado la operacion";
             die();
         }
+    }
+
+    public function obtenerCantidadPosts() {
+        $bd = Klasto::getInstance();
+        $sql = "select count(*) as cantidadPosts from post";
+        return $bd->queryOne($sql);
     }
 }

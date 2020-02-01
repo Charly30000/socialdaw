@@ -9,6 +9,7 @@ use dawfony\KlastoException;
 //listado para pantalla principal
 Macaw::get($URL_PATH . "/","controller\PruebaController@listado");
 Macaw::get($URL_PATH . "/listado","controller\PruebaController@listado");
+Macaw::get($URL_PATH . "/listado/(:num)","controller\PruebaController@listado");
 Macaw::get($URL_PATH . '/registro', "controller\PruebaController@registro");
 Macaw::post($URL_PATH . '/registro', "controller\PruebaController@registroAceptado");
 Macaw::get($URL_PATH . '/login', "controller\PruebaController@login");
