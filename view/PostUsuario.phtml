@@ -9,6 +9,7 @@
     ?>
     <script> var URL_PATH = "<?= $URL_PATH ?>" </script>
     <script src="<?= $URL_PATH ?>/js/likes.js"></script>
+    <script src="<?= $URL_PATH ?>/js/comprobarTextArea.js"></script>
 <div class="row">
             <div class="col-md-12">
                 <div class="row unPost">
@@ -39,5 +40,43 @@
                 </div>
             </div>
         </div>
+        <div class="container-fluid">
+	<div class="row comentario">
+		<div class="col-md-12">
+			<form role="form" id="annadirComentario" action ="<?= $URL_PATH ?>/annadirComentario/<?= $postUsuario->id ?>" method ="POST">
+				<div class="form-group">
+					<label for="comentario">
+						<h3>Añadir un comentario:</h3>
+					</label><br>
+					<textarea name="comentario" id="comentario" style="width: 100%" rows="3"></textarea>
+				</div>
+				<button type="submit" class="btn btn-primary">
+					Comentar
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+<?php
+    foreach ($comentariosPost as $value) {
+        ?>
+        <div class="container-fluid">
+            <div class="row comentario">
+                <div class="col-md-8">
+                    <p><?= $value->texto ?></p>
+                </div>
+                <div class="col-md-4">
+                <h2>
+                    Por: <a href="
+                    <?= $URL_PATH."/buscarUsuario?usuarioBuscado=$value->usuario_login" ?>">
+                        <i><?= $value->usuario_login ?></i></a>
+                    </h2>
+                <p>en <?= $value->fecha ?></p>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+?>
 <?php Ti::endBlock(); ?>
 <?php Ti::endExtend() ?>

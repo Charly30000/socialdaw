@@ -143,7 +143,7 @@ class OrmSocialDaw {
 
     public function obtenerComentarios($idPost) {
         $bd = Klasto::getInstance();
-        $sql = "select usuario_login, fecha, texto from comenta where post_id = ?";
+        $sql = "select usuario_login, fecha, texto from comenta where post_id = ? order by fecha desc";
         return $bd->query($sql, [$idPost], "model\Comentarios");
     }
 
@@ -183,5 +183,15 @@ class OrmSocialDaw {
         $bd = Klasto::getInstance();
         $sql = "select count(*) as cantidadPosts from post";
         return $bd->queryOne($sql);
+    }
+
+    public function annadirComentario($idPost, $loginUsuario, $texto) {
+        $bd = Klasto::getInstance();
+        $sql = "insert into comenta (post_id, usuario_login, fecha, texto) values (?, ?, SYSDATE(), ?)";
+        $ejecutar = $bd->execute($sql, [$idPost, $loginUsuario, $texto]);
+        if ($ejecutar == 0) {
+            echo "No se ha realizado la operacion";
+            die();
+        }
     }
 }

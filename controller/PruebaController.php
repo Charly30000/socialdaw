@@ -233,4 +233,15 @@ class PruebaController extends Controller {
             }
         }
     }
+
+    function annadirComentario($idPost) {
+        if (isset($_SESSION["login"])) {
+            $loginUsuario = $_SESSION["login"];
+            $texto = sanitizar($_POST["comentario"] ?? "");
+            $idPost = sanitizar($idPost);
+            (new OrmSocialDaw)->annadirComentario($idPost, $loginUsuario, $texto);
+        }
+        global $URL_PATH;
+        header("Location: $URL_PATH/verPost/$idPost");
+    }
 }
