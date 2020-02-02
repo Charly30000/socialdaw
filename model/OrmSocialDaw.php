@@ -93,6 +93,16 @@ class OrmSocialDaw {
         }
     }
 
+    public function dejarSeguirUsuario($loginUsuario, $usuarioASeguir) {
+        $bd = Klasto::getInstance();
+        $sql = "delete from sigue where usuario_login_seguidor = ? and usuario_login_seguido = ?";
+        $ejecutar = $bd->execute($sql, [$loginUsuario, $usuarioASeguir]);
+        if ($ejecutar == 0) {
+            echo "No se ha realizado la operacion";
+            die();
+        }
+    }
+
     public function categoriasPosts() {
         $bd = Klasto::getInstance();
         $sql = "select descripcion from categoria_post";

@@ -184,6 +184,8 @@ class PruebaController extends Controller {
         $leSigue = (new OrmSocialDaw)->comprobarSeguimiento($loginUsuario, $usuarioASeguir);
         if (!$leSigue) {
             (new OrmSocialDaw)->seguirUsuario($loginUsuario, $usuarioASeguir);
+        } else {
+            (new OrmSocialDaw)->dejarSeguirUsuario($loginUsuario, $usuarioASeguir);
         }
         global $URL_PATH;
         header("Location: $URL_PATH/buscarUsuario?usuarioBuscado=$usuarioASeguir");
@@ -230,9 +232,5 @@ class PruebaController extends Controller {
                 (new OrmSocialDaw)->quitarLike($loginUsuario, $idPost);
             }
         }
-    }
-
-    function obtenerCantidadPosts($pagina = 1) {
-
     }
 }
