@@ -257,7 +257,6 @@ class PruebaController extends Controller {
 
     function borrarPost($idPost) {
         if (isset($_SESSION["login"])){
-            session_start();
             $loginUsuario = $_SESSION["login"];
             $rolUsuario = (new OrmSocialDaw)->obtenerRolUsuario($loginUsuario);
             if ($rolUsuario->rol_id === 1) {
