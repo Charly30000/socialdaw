@@ -35,7 +35,6 @@ function comprobarLike(boton) {
 function darLike() {
     let boton = this;
     let url = URL_PATH + "/darLike/" + boton.id;
-    console.log(url)
     fetch(url)
     .then (function (respuesta){
         return respuesta.text();

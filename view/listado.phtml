@@ -6,6 +6,7 @@
     ?>
     <script> var URL_PATH = "<?= $URL_PATH ?>" </script>
     <script src="<?= $URL_PATH ?>/js/likes.js"></script>
+    <script src="<?= $URL_PATH ?>/js/cantidadComentarios.js"></script>
     <?php
     foreach ($data["posts"] as $value) {
         ?>
@@ -25,9 +26,13 @@
                         <p>
                             <a class="btn" href="<?= $URL_PATH ?>/verPost/<?= $value->id ?>">Ver post »</a>
                         </p>
-                        <p>
+                        <p class="iconicos">
                             <img class="likes" id="<?= $value->id ?>" src="<?= $URL_PATH ?>/js/like.jpg" alt="like.jpg">
                             <span id="cantidadLikes<?= $value->id ?>"></span> 
+                        </p>
+                        <p class="iconicos">
+                            <img class="comentariosIcono" src="<?= $URL_PATH ?>/js/comentarios.jpg" alt="comentarios.jpg">
+                            <span class="comentarios" id="cantidadComentarios_<?= $value->id ?>"></span>
                         </p>
                     </div>
                     <div class="col-md-2">

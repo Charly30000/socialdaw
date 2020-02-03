@@ -194,4 +194,10 @@ class OrmSocialDaw {
             die();
         }
     }
+
+    public function obtenerCantidadComentarios($idPost) {
+        $bd = Klasto::getInstance();
+        $sql = "select count(*) as contador from comenta where post_id = ?";
+        return $bd->queryOne($sql, [$idPost]);
+    }
 }

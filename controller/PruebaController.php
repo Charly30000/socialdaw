@@ -244,4 +244,10 @@ class PruebaController extends Controller {
         global $URL_PATH;
         header("Location: $URL_PATH/verPost/$idPost");
     }
+
+    function obtenerCantidadComentarios($idPost) {
+        $idPost = sanitizar($idPost);
+        $cantidadComentarios = (new OrmSocialDaw)->obtenerCantidadComentarios($idPost);
+        echo $cantidadComentarios["contador"];
+    }
 }
