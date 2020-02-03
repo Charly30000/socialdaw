@@ -15,8 +15,12 @@ class PruebaController extends Controller {
         $OrmSocialDaw = new OrmSocialDaw;
         $listadoPosts = $OrmSocialDaw->listadoPosts($pagina);
         $cantidadPosts = $OrmSocialDaw->obtenerCantidadPosts();
+        $rolUsuario = null;
+        if (isset($_SESSION["login"])){
+            $rolUsuario = $OrmSocialDaw->obtenerRolUsuario($_SESSION["login"]);
+        }
         $data = ["posts" => $listadoPosts, "title" => "Listado", "cantidadPosts" => $cantidadPosts["cantidadPosts"],
-            "pagina" => $pagina];
+            "pagina" => $pagina, "rolUsuario" => $rolUsuario];
         echo Ti::render("view/listado.phtml", $data);
     }
 
@@ -249,5 +253,19 @@ class PruebaController extends Controller {
         $idPost = sanitizar($idPost);
         $cantidadComentarios = (new OrmSocialDaw)->obtenerCantidadComentarios($idPost);
         echo $cantidadComentarios["contador"];
+    }
+
+    function borrarPost($idPost) {
+        if (isset($_SESSION["login"])){
+            session_start();
+            $loginUsuario = $_SESSION["login"];
+            $rolUsuario = (new OrmSocialDaw)->obtenerRolUsuario($loginUsuario);
+            if ($rolUsuario->rol_id === 1) {
+                $idPost = sanitizar($idPost);
+                (new OrmSocialDaw)->borrarPost($idPost);
+            }
+        }
+        global $URL_PATH;
+        header("Location: $URL_PATH/listado");
     }
 }

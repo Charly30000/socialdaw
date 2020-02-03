@@ -200,4 +200,16 @@ class OrmSocialDaw {
         $sql = "select count(*) as contador from comenta where post_id = ?";
         return $bd->queryOne($sql, [$idPost]);
     }
+
+    public function borrarPost($idPost) {
+        $bd = Klasto::getInstance();
+        $bd->startTransaction();
+        $sql = "DELETE FROM comenta WHERE post_id = ?";
+        $bd->execute($sql, [$idPost]);
+        $sql = "delete from `like` where post_id = ?";
+        $bd->execute($sql, [$idPost]);
+        $sql = "delete from post where id = ?";
+        $bd->execute($sql, [$idPost]);
+        $bd->commit();
+    }
 }

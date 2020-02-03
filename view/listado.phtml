@@ -45,6 +45,10 @@
                             de <strong><?= $value->categoria_post_id ?></strong><br>
                             en <?= $value->fecha ?>
                         </p>
+                        <?php if ($data["rolUsuario"] !== null && $data["rolUsuario"]->rol_id === 1) : ?>
+                            <a type="submit" class="btn btn-danger" 
+                                href="<?= $URL_PATH ?>/borrarPost/<?= $value->id ?>">Borrar post</a>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>
