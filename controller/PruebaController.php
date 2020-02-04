@@ -109,7 +109,12 @@ class PruebaController extends Controller {
         $usuario = sanitizar($_SESSION["login"]);
         $postsUsuario = (new OrmSocialDaw)->postsUsuario($usuario);
         $datosUsuario = (new OrmSocialDaw)->obtenerUsuario($usuario);
-        $data = ["title" => "Mi perfil", "datos" => compact("postsUsuario", "datosUsuario")];
+        $rolUsuario = null;
+        if (isset($_SESSION["login"])) {
+            $rolUsuario = (new OrmSocialDaw)->obtenerRolUsuario($usuario);
+        }
+        $data = ["title" => "Mi perfil", "datos" => compact("postsUsuario", "datosUsuario"), 
+            "rolUsuario" => $rolUsuario];
         echo Ti::render("view/perfilUsuario.phtml", $data);
     }
 
@@ -177,8 +182,13 @@ class PruebaController extends Controller {
         } else {
             $data = ["leSigue" => false];
         }
+        $rolUsuario = null;
+        if (isset($_SESSION["login"])) {
+            $loginUsuario = $_SESSION["login"];
+            $rolUsuario = (new OrmSocialDaw)->obtenerRolUsuario($loginUsuario);
+        }
         $data += ["title" => "Perfil de $usuario", "datos" => compact("postsUsuario", "datosUsuario"), 
-            "usuario" => $usuario];
+            "usuario" => $usuario, "rolUsuario" => $rolUsuario];
         echo Ti::render("view/perfilUsuario.phtml", $data);
     }
 
@@ -284,5 +294,17 @@ class PruebaController extends Controller {
                 "rolUsuario" => $rolUsuario];
             echo Ti::render("view/LoUltimo.phtml", $data);
         }
+    }
+
+    function borrarUsuario($loginUsuarioBorrar) {
+        if (isset($_SESSION["login"])) {
+            $loginUsuario = sanitizar($_SESSION["login"]);
+            $rolUsuario = (new OrmSocialDaw)->obtenerRolUsuario($loginUsuario);
+            if ($rolUsuario->rol_id === 1) {
+                (new OrmSocialDaw)->borrarUsuario($loginUsuarioBorrar);
+            }
+        }
+        global $URL_PATH;
+        //header("Location: $URL_PATH/listado");
     }
 }

@@ -2,7 +2,7 @@
 <?php Ti::extend("view/MainView.phtml"); ?>
 <?php Ti::startBlock("content"); ?>
 <?php
-	extract($data["datos"]);
+    extract($data["datos"]);
 ?>
 <?php
     global $URL_PATH;
@@ -11,7 +11,11 @@
     <script src="<?= $URL_PATH ?>/js/likes.js"></script>
     <script src="<?= $URL_PATH ?>/js/cantidadComentarios.js"></script>
 <div class="container-fluid">
-	<div class="row colocarHorizontal">
+    <div class="row colocarHorizontal">
+    <?php if ($data["rolUsuario"] !== null && $data["rolUsuario"]->rol_id === 1) : ?>
+        <a type="submit" class="btn btn-danger" 
+            href="<?= $URL_PATH ?>/borrarUsuario/<?= $datosUsuario->login ?>">Borrar usuario</a>
+    <?php endif ?>
 		<div class="col-md-12">
 			<dl>
 				<dt>

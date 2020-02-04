@@ -229,4 +229,20 @@ class OrmSocialDaw {
         $sql .= " order by fecha desc";
         return $bd->query($sql, [$loginUsuario], "model\Post");
     }
+
+    public function borrarUsuario($usuario) {
+        $bd = Klasto::getInstance();
+        $bd->startTransaction();
+        $sql = "delete from comenta where usuario_login = ?";
+        $bd->execute($sql, [$usuario]);
+        $sql = "delete from `like` where usuario_login = ?";
+        $bd->execute($sql, [$usuario]);
+        $sql = "delete from post where usuario_login = ?";
+        $bd->execute($sql, [$usuario]);
+        $sql = "delete from sigue where usuario_login_seguidor = ? or usuario_login_seguido = ?";
+        $bd->execute($sql, [$usuario, $usuario]);
+        $sql = "delete from usuario where login = ?";
+        $bd->execute($sql, [$usuario]);
+        $bd->commit();
+    }
 }
