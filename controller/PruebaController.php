@@ -132,9 +132,6 @@ class PruebaController extends Controller {
         $categoriaPost = sanitizar($_POST["categoriaPost"]);
         $foto = $_FILES["foto"];
         //Por hacer cosas
-        echo "<pre>";
-        var_dump($resumen, $texto, $foto, $categoriaPost);
-        echo "</pre>";
         if ($foto["name"] === "") {
             $foto = "avatarNull.png";
         } else {
