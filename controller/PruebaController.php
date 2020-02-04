@@ -257,10 +257,19 @@ class PruebaController extends Controller {
 
     function borrarPost($idPost) {
         if (isset($_SESSION["login"])){
+            global $URL_PATH;
+            $idPost = sanitizar($idPost);
             $loginUsuario = $_SESSION["login"];
             $rolUsuario = (new OrmSocialDaw)->obtenerRolUsuario($loginUsuario);
+            $fotoPost = (new OrmSocialDaw)->obtenerImagen($idPost);
+            $fotoPost = $fotoPost["foto"];
+            echo "<pre>";
+            var_dump($fotoPost);
+            echo "</pre>";
+            if ($fotoPost !== "avatarNull.png") {
+                unlink("assets/img/$fotoPost");//para borrar la foto
+            }
             if ($rolUsuario->rol_id === 1) {
-                $idPost = sanitizar($idPost);
                 (new OrmSocialDaw)->borrarPost($idPost);
             }
         }

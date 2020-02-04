@@ -212,4 +212,10 @@ class OrmSocialDaw {
         $bd->execute($sql, [$idPost]);
         $bd->commit();
     }
+
+    public function obtenerImagen($idPost) {
+        $bd = Klasto::getInstance();
+        $sql = "select foto from post where id = ?";
+        return $bd->queryOne($sql, [$idPost]);
+    }
 }
