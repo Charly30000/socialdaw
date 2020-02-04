@@ -305,6 +305,6 @@ class PruebaController extends Controller {
             }
         }
         global $URL_PATH;
-        //header("Location: $URL_PATH/listado");
+        header("Location: $URL_PATH/listado");
     }
 }
