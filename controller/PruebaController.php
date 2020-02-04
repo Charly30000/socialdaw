@@ -263,17 +263,26 @@ class PruebaController extends Controller {
             $rolUsuario = (new OrmSocialDaw)->obtenerRolUsuario($loginUsuario);
             $fotoPost = (new OrmSocialDaw)->obtenerImagen($idPost);
             $fotoPost = $fotoPost["foto"];
-            echo "<pre>";
-            var_dump($fotoPost);
-            echo "</pre>";
-            if ($fotoPost !== "avatarNull.png") {
-                unlink("assets/img/$fotoPost");//para borrar la foto
-            }
             if ($rolUsuario->rol_id === 1) {
                 (new OrmSocialDaw)->borrarPost($idPost);
+            }
+            if ($fotoPost !== "avatarNull.png") {
+                unlink("assets/img/$fotoPost");//para borrar la foto
             }
         }
         global $URL_PATH;
         header("Location: $URL_PATH/listado");
+    }
+
+    function loUltimo() {
+        if (isset($_SESSION["login"])) {
+            session_start();
+            $loginUsuario = sanitizar($_SESSION["login"]);
+            $postsUsuariosQueSigo = (new OrmSocialDaw)->postsUsuariosQueSigo($loginUsuario);
+            $rolUsuario = (new OrmSocialDaw)->obtenerRolUsuario($loginUsuario);
+            $data = ["title" => "Post que sigues", "postsUsuariosQueSigo" => $postsUsuariosQueSigo, 
+                "rolUsuario" => $rolUsuario];
+            echo Ti::render("view/LoUltimo.phtml", $data);
+        }
     }
 }

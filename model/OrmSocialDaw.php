@@ -218,4 +218,15 @@ class OrmSocialDaw {
         $sql = "select foto from post where id = ?";
         return $bd->queryOne($sql, [$idPost]);
     }
+
+    public function postsUsuariosQueSigo($loginUsuario) {
+        $bd = Klasto::getInstance();
+        $sql = "select post.id, fecha, resumen, texto, foto, descripcion as categoria_post_id, usuario_login";
+        $sql .= " from post, categoria_post, sigue";
+        $sql .= " where categoria_post.id = post.categoria_post_id and";
+        $sql .= " post.usuario_login = sigue.usuario_login_seguidor";
+        $sql .= " and post.usuario_login IN (select usuario_login_seguido from sigue where usuario_login_seguidor = ?)";
+        $sql .= " order by fecha desc";
+        return $bd->query($sql, [$loginUsuario], "model\Post");
+    }
 }

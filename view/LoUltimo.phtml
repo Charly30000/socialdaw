@@ -1,0 +1,60 @@
+<?php use \dawfony\Ti; ?>
+<?php Ti::extend("view/MainView.phtml"); ?>
+<?php Ti::startBlock("content"); ?>
+<?php
+    global $URL_PATH;
+    ?>
+    <script> var URL_PATH = "<?= $URL_PATH ?>" </script>
+    <script src="<?= $URL_PATH ?>/js/likes.js"></script>
+    <script src="<?= $URL_PATH ?>/js/cantidadComentarios.js"></script>
+    <?php
+    foreach ($data["postsUsuariosQueSigo"] as $value) {
+        ?>
+            <div class="row">
+            <div class="col-md-12">
+                <div class="row unPost">
+                    <div class="col-md-3">
+                        <img class="iconoUsuario" alt="<?= $value->foto ?>" src="<?php global $URL_PATH; echo $URL_PATH; ?>/assets/img/<?= $value->foto ?>" />
+                    </div>
+                    <div class="col-md-7">
+                        <h2>
+                            <?= $value->resumen ?>
+                        </h2>
+                        <p>
+                        <?= $value->texto ?>
+                        </p>
+                        <p>
+                            <a class="btn" href="<?= $URL_PATH ?>/verPost/<?= $value->id ?>">Ver post »</a>
+                        </p>
+                        <p class="iconicos">
+                            <img class="likes" id="<?= $value->id ?>" src="<?= $URL_PATH ?>/js/like.jpg" alt="like.jpg">
+                            <span id="cantidadLikes<?= $value->id ?>"></span> 
+                        </p>
+                        <p class="iconicos">
+                            <img class="comentariosIcono" src="<?= $URL_PATH ?>/js/comentarios.jpg" alt="comentarios.jpg">
+                            <span class="comentarios" id="cantidadComentarios_<?= $value->id ?>"></span>
+                        </p>
+                    </div>
+                    <div class="col-md-2">
+                        <h2>
+                            Por: <a href="
+                            <?= $URL_PATH."/buscarUsuario?usuarioBuscado=$value->usuario_login" ?>">
+                            <i><?= $value->usuario_login ?></i></a>
+                        </h2>
+                        <p>
+                            de <strong><?= $value->categoria_post_id ?></strong><br>
+                            en <?= $value->fecha ?>
+                        </p>
+                        <?php if ($data["rolUsuario"] !== null && $data["rolUsuario"]->rol_id === 1) : ?>
+                            <a type="submit" class="btn btn-danger" 
+                                href="<?= $URL_PATH ?>/borrarPost/<?= $value->id ?>">Borrar post</a>
+                        <?php endif ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
+?>
+<?php Ti::endBlock(); ?>
+<?php Ti::endExtend() ?>
