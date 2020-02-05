@@ -40,8 +40,10 @@ Macaw::error(function() {
 try {
   Macaw::dispatch();
 }catch(KlastoException $ex) {
+  http_response_code(500);
   echo $ex->getMessage();
 }catch (Exception $ex) {
+  http_response_code(500);
   echo $ex->getMessage();
 }
 
